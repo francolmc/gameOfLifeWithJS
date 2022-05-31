@@ -49,15 +49,18 @@ const paintCanvasUniverse = (canvasContext, universe, widthUniverse, heightUnive
 };
 
 const evaluateUniverse = (universe, widthUniverse, heightUniverse) => {
+    const localUniverse = [];
     for(let XAxis = 0; XAxis < widthUniverse; XAxis++) {
+        const row = [];
         for(let YAxis = 0; YAxis < heightUniverse; YAxis++) {
             if(isCellAlive(universe, XAxis, YAxis, widthUniverse, heightUniverse))
-                universe[XAxis][YAxis] = 1;
+                row[YAxis] = 1;
             else
-                universe[XAxis][YAxis] = 0;
+                row[YAxis] = 0;
         }
+        localUniverse.push(row);
     }
-    return universe;
+    return localUniverse;
 };
 
 const isCellAlive = (universe, XAxis, YAxis, widthUniverse, heightUniverse) => {
@@ -96,7 +99,6 @@ let universe = []
 const startUniverse = () => {
     const context = getCanvasContext();
     universe = initialUniverse(WidthUniverse, HeightUniverse);
-    console.log(universe);
     paintCanvasUniverse(context, universe, WidthUniverse, HeightUniverse);
 }
 
@@ -110,3 +112,4 @@ const continuousProcess = () => {
 startUniverse();
 
 setInterval(() => continuousProcess(), 500);
+//continuousProcess();
